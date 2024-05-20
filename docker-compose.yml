@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  bot_image:
+    image: 127.0.0.1:5000/bot_image
+    depends_on:
+      - db_image
+  db_image:
+    image: 127.0.0.1:5000/bd_image
+
+  db_repl_image:
+    image: 127.0.0.1:5000/bd_repl_image
+    depends_on:
+      - db_image
