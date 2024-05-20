@@ -104,7 +104,7 @@
     db_repl_user: "{{ DB_REPL_USER }}"
     db_name: "{{ DB_DATA }}"
     db_user: "{{ DB_USER }}"
-    db_pass: "{{ DB_PASSWORD }}"
+    db_pass: "{{ DB_REPL_PASSWORD }}"
     db_repl_port: "{{ DB_REPL_PORT }}"
   tasks:
 
@@ -165,7 +165,7 @@
  
   - name: Edit bot unit file
     shell: |
-      echo "[Unit]\nDescription=pt_bot\nAfter=network.target\n[Service]\nUser=root\nWorkingDirectory=/\nExecStart=/usr/bin/python3 /temp/pt_bot/bot/bot.py\nRestart=always\nEnvironment='PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/bot.service
+      echo "[Unit]\nDescription=pt_bot\nAfter=network.target\n[Service]\nUser=root\nWorkingDirectory=/\nExecStart=/usr/bin/python3 /temp/pt_bot/bot/main.py\nRestart=always\nEnvironment='PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/bot.service
 
   - name: Reload systemd to recognize the new service
     ansible.builtin.service:
