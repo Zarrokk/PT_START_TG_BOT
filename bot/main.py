@@ -3,22 +3,23 @@ import re
 import paramiko
 import psycopg2
 import sys
-
+from dotenv import load_dotenv
 from telegram import  ForceReply,  InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import  MessageHandler, Filters, ConversationHandler, Updater, CommandHandler, CallbackQueryHandler, CallbackContext
 
+load_dotenv()
 global phoneNumberList
 global EmailList
-TOKEN = "6700134720:AAEpT20b3c1JPVD8Ptajc4SLSddThqmPoAs"
-HOSTNAME = '127.0.0.1'
-PORT = 22
-USERNAME = 'root'
-PASSWORD = 'root'
+TOKEN = os.getenv('TOKEN', '')
+HOSTNAME = os.getenv('RM_HOST', '')
+PORT = os.getenv('RM_PORT', '')
+USERNAME = os.getenv('RM_USER', '')
+PASSWORD = os.getenv('RM_PASSWORD', '')
 
-HOSTNAME_LOGS = 'db_image'
-PORT = 22
-USERNAME = 'root'
-PASSWORD = 'root'
+HOSTNAME_LOGS = os.getenv('DB_HOST', '')
+PORT = os.getenv('RM_PORT', '')
+USERNAME = os.getenv('RM_USER', '')
+PASSWORD = os.getenv('RM_PASSWORD', '')
 
 
 logging.basicConfig(
@@ -26,11 +27,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-connection = psycopg2.connect(user="postgres",
-                              password="root",
-                              host="db_image",
-                              port="5432",
-                              database="pt_tg")
+connection = psycopg2.connect(user=os.getenv('DB_USER', ''),
+                              password=os.getenv('DB_PASSWORD', ''),
+                              host=os.getenv('DB_HOST', ''),
+                              port=os.getenv('DB_PORT', ''),
+                              database=os.getenv('DB_DATABASE', ''))
 
 
 def connect_ssh():
